@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Adds the Amazon SES X-SES-TENANT header to outgoing mail.
+ */
+
+use Drupal\ses_tenant_header\TenantResolver;
+
+/**
+ * Implements hook_mail_alter().
+ */
+function ses_tenant_header_mail_alter(array &$message): void {
+  /** @var \Drupal\ses_tenant_header\TenantResolver $resolver */
+  $resolver = \Drupal::service('ses_tenant_header.tenant_resolver');
+  $result = $resolver->resolve();
+
+  if ($result['status'] === TenantResolver::STATUS_DISABLED) {
+    return;
+  }
+  if ($result['status'] === TenantResolver::STATUS_ERROR) {
+    \Drupal::logger('ses_tenant_header')->warning('The ses_tenant setting is invalid (@reason); the @header header was omitted.', [
+      '@reason' => $result['reason'],
+      '@header' => TenantResolver::HEADER,
+    ]);
+    return;
+  }
+
+  $message['headers'] = $resolver->applyHeader($message['headers'] ?? [], $result['tenant']);
+}

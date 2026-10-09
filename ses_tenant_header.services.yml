@@ -1,0 +1,3 @@
+services:
+  ses_tenant_header.tenant_resolver:
+    class: Drupal\ses_tenant_header\TenantResolver

@@ -1,0 +1,9 @@
+{
+  "name": "drupal/ses_tenant_header",
+  "description": "Adds the Amazon SES X-SES-TENANT header to outgoing Drupal mail.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/core": "^10 || ^11"
+  }
+}

@@ -1,0 +1,6 @@
+services:
+  ses_tenant_header.commands:
+    class: Drupal\ses_tenant_header\Drush\Commands\SesTenantHeaderCommands
+    arguments: ['@ses_tenant_header.tenant_resolver']
+    tags:
+      - { name: drush.command }

@@ -1,0 +1,5 @@
+name: SES Tenant Header
+type: module
+description: 'Adds the Amazon SES X-SES-TENANT header to outgoing mail, based on a value in settings.php.'
+package: Mail
+core_version_requirement: ^10 || ^11
